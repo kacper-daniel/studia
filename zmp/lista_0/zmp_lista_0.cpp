@@ -29,5 +29,10 @@ int main(){
     std::cin >> m;
     std::cin >> n;
     std::cout << 3*(m+n) << std::endl;
+
+    // zapisz za pomoca operatorow bitowych i "+" wyrazenie x-y
+    std::cout << ~y << std::endl;
+    std::cout << x + ~y + 1 << std::endl; 
+
     return 0;
 }
