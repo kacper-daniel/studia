@@ -40,7 +40,6 @@ void swap_ptr(int *a, int *b){
     *b = temp;
 }
 
-
 int main(){
     cw_1();
     cout << nwd_rec(76, 38) << endl;
