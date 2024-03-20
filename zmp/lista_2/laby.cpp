@@ -40,6 +40,10 @@ void swap_ptr(int *a, int *b){
     *b = temp;
 }
 
+void subsets(int tab[], int size){
+    
+}
+
 int main(){
     cw_1();
     cout << nwd_rec(76, 38) << endl;
