@@ -40,8 +40,7 @@ void swap_ptr(int *a, int *b){
     *b = temp;
 }
 
-void subsets(int tab[], int size){
-    
+void subsets(int tab[], int idx = 0, int size, int temp[] = {}){
 }
 
 int main(){
