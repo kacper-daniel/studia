@@ -40,7 +40,7 @@ double cw_2(int n){
     int factorial = 1;
     for(int i = 2; i <= n; i++){
         factorial *= i;
-        res += 1/factorial;
+        res += 1/(double)factorial;
     }
     return res;
 }
@@ -57,7 +57,7 @@ int main(){
     cout << "max: " << array_max(array, size) << endl;
     cout << "min: " << array_min(array, size) << endl;
 
-    cout << cw_2(10) << endl;
+    cout << cw_2(20) << endl;
 
     return 0;
 }
