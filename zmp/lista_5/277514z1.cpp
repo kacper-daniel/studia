@@ -96,7 +96,7 @@ void traverse(vector<int> tab,node* root){
     }
 }
 
-node* mergeTrees(node *root1, node *root2, int x) 
+node* merge_trees(node *root1, node *root2, int x) 
 { 
     traverse(first_tree, root1); 
     traverse(second_tree, root2);
