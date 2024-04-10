@@ -81,7 +81,45 @@ void print_binary_tree(string prefix, node* node, bool isLeft){
 }
 
 // zadanie (ii)
+// najpierw tworze sobie funkcję trawersującą drzewo, żeby następnie utworzyć dwie tablice zawierające elementy obu drzew
+// łączę obie tablice
+// przesuwam element który jest zadanym korzeniem na koniec tablicy, żeby następnie funkcja build_tree prawidłowo utworzyła nowe drzewo
+std::vector<int> first_tree;
+std::vector<int> second_tree;
+void traverse(vector<int> tab,node* root){
+    tab.push_back(root->data);
+    if(root->left != nullptr){
+        traverse(tab, root->left);
+    }
+    if(root->right != nullptr){
+        traverse(tab, root->right);
+    }
+}
 
+node* mergeTrees(node *root1, node *root2, int x) 
+{ 
+    traverse(first_tree, root1); 
+    traverse(second_tree, root2);
+
+    vector<int> temp;
+    temp.reserve(first_tree.size() + second_tree.size());
+    temp.insert(temp.end(),first_tree.begin(), first_tree.end());
+    temp.insert(temp.end(),second_tree.begin(), second_tree.end()); 
+
+    int i = 0;
+    for(const int& j : temp){
+        if(j == x){
+            int helper = temp[temp.size() - 1];
+            temp[i] = helper;
+            temp[temp.size() - 1] = x;
+            break;
+        }
+        i++;
+    }
+ 
+    int* helper = &temp[0];
+    return build_tree(helper, temp.size());
+}
 
 int main(){
     int n, s;
