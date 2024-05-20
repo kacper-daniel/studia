@@ -4,6 +4,7 @@
 class Zwierz {
     private:
         std::string imie, rasa;
+        
     public:
         Zwierz(std::string imie="", std::string rasa =""){
             imie = imie;
