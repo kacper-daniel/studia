@@ -82,6 +82,6 @@ int main(){
         bst.insert(array[i]);
     }
 
-    bst.inOrder();
+    bst.inOrder();      
     return 0;
 }
