@@ -1,4 +1,5 @@
 #include <iostream>
+#include <map>
 
 template <typename T> struct Pair {
     T value;
@@ -18,11 +19,13 @@ template <typename T> struct Node {
 template <typename T> class Multiset {
 private:
     Node<T>* _root;
-    void insert(Node<T>*& treeNode, T data);
-    void search(Node<T>*& treeNode, T value);
+    void insert(Node<T>* treeNode, T data);
+    void search(Node<T>* treeNode, T value);
     Node<T>* erase(Node<T>* treeNode, T value);
     Node<T>* findMin(Node<T>* treeNode);
     void inOrder(Node<T>* treeNode, Multiset<T>* pairs);
+    std::map<T, int> multisetToMap(Node<T>* treeNode, std::map<T, int> pairs);
+    bool compare(Node<T>* treeNodeFirst, Node<T>* treeNodeSecond);
 
 public:    
     Multiset();
@@ -42,14 +45,28 @@ public:
         isIncluded(_root, second);
     }
 
-    bool compare(Multiset<T>& other);
+    std::map<T, int> multisetToMap(){
+        std::map<T, int> temp;
+        return multisetToMap(_root, temp);
+    }
+
+    bool operator==(Multiset<T>& other){
+        bool result = true;
+        std::map<T, int> multiset1 = multisetToMap(first);
+        std::map<T, int> multiset2 = multisetToMap(other);
+        return multiset1 == multiset2;
+    }
+
+    bool compare(Multiset<T>& second){
+        compare(_)
+    };
 };
 
 template <typename T> Multiset<T>::Multiset() {
     _root = nullptr;
 }
 
-template <typename T> void Multiset<T>::insert(Node<T>*& treeNode, T data) {
+template <typename T> void Multiset<T>::insert(Node<T>* treeNode, T data) {
     if (!treeNode) {
         treeNode = new Node<T>(data);
     } 
@@ -66,7 +83,7 @@ template <typename T> void Multiset<T>::insert(Node<T>*& treeNode, T data) {
     }
 }
 
-template <typename T> void Multiset<T>::search(Node<T>*& treeNode, T value){
+template <typename T> void Multiset<T>::search(Node<T>* treeNode, T value){
     if(!treeNode){
         return;
     }
@@ -128,14 +145,17 @@ template <typename T> void Multiset<T>::inOrder(Node<T>* treeNode, Multiset<T>* 
     }
 }
 
-template <typename T> bool Multiset<T>::compare(Multiset<T>& other) {
-    Multiset<T>* pairs1;
-    Multiset<T>* pairs2;
-    
-    inOrder(_root, pairs1);
-    inOrder(other._root, pairs2);
+template <typename T> std::map<T, int> Multiset<T>::multisetToMap(Node<T>* treeNode, std::map<T, int> pairs){
+    if(treeNode){
+        multisetToMap(treeNode->left);
+        pairs[treeNode->data.value] = treeNode->data.count;
+        multisetToMap(treeNode->right);
+    }
+    return pairs;
+}
 
-    return pairs1 == pairs2;
+template <typename T> bool Multiset<T>::compare(Multiset<T>& first, Multiset<T>& second) {
+    return first == second;
 }
 
 
