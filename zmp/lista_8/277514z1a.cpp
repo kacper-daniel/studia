@@ -25,7 +25,7 @@ private:
     Node<T>* findMin(Node<T>* treeNode);
     void inOrder(Node<T>* treeNode, Multiset<T>* pairs);
     std::map<T, int> multisetToMap(Node<T>* treeNode, std::map<T, int> pairs);
-    bool compare(Node<T>* treeNodeFirst, Node<T>* treeNodeSecond);
+    void print(Node<T>* treeNode);
 
 public:    
     Multiset();
@@ -50,16 +50,17 @@ public:
         return multisetToMap(_root, temp);
     }
 
-    bool operator==(Multiset<T>& other){
-        bool result = true;
-        std::map<T, int> multiset1 = multisetToMap(first);
-        std::map<T, int> multiset2 = multisetToMap(other);
+    bool operator==(Multiset<T>* other){
+        std::map<T, int> temp1;
+        std::map<T, int> temp2;
+        std::map<T, int> multiset1 = multisetToMap(_root, temp1);
+        std::map<T, int> multiset2 = multisetToMap(other->_root, temp2);
         return multiset1 == multiset2;
     }
 
-    bool compare(Multiset<T>& second){
-        compare(_)
-    };
+    void print(){
+        print(_root);
+    }
 };
 
 template <typename T> Multiset<T>::Multiset() {
@@ -147,28 +148,46 @@ template <typename T> void Multiset<T>::inOrder(Node<T>* treeNode, Multiset<T>* 
 
 template <typename T> std::map<T, int> Multiset<T>::multisetToMap(Node<T>* treeNode, std::map<T, int> pairs){
     if(treeNode){
-        multisetToMap(treeNode->left);
+        multisetToMap(treeNode->left, pairs);
         pairs[treeNode->data.value] = treeNode->data.count;
-        multisetToMap(treeNode->right);
+        multisetToMap(treeNode->right, pairs);
     }
     return pairs;
 }
 
-template <typename T> bool Multiset<T>::compare(Multiset<T>& first, Multiset<T>& second) {
-    return first == second;
+template <typename T> void Multiset<T>::print(Node<T>* treeNode){
+    if (treeNode) {
+        print(treeNode->left);
+        std::cout << " (" << treeNode->data.value << ", " << treeNode->data.count << ") " << std::endl;
+        print(treeNode->right);
+    }
 }
-
 
 int main() {
     Multiset<int> multiset1;
     Multiset<int> multiset2;
 
-    multiset1.insert(10);
-    multiset1.insert(10);
-    multiset2.insert(10);
-    multiset2.insert(10);
+    int n, k;
+    std::cin >> n;
+    std::cin >> k;
 
-    multiset1.compare(multiset2);
+    for(int i = 0; i < n; i++){
+        int temp;
+        std::cin>>temp;
+        multiset1.insert(temp);
+    }
+
+    for(int i = 0; i < k; i++){
+        int temp;
+        std::cin>>temp;
+        multiset2.insert(temp);
+    }
+
+    std::cout << "M1: " << std::endl;
+    multiset1.print();
+
+    std::cout << "\nM2: " << std::endl;
+    multiset2.print();
 
     return 0;
 }
